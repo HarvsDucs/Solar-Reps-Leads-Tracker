@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="static/src/output.css" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('#toggleButton').click(function() {
+              $.post('/toggle', function(data) {
+                  $('#counter').text(data.counter);
+              });
+          });
+      });
+  </script>
+</head>
+<body>
+
+    <!--
+// v0 by Vercel.
+// https://v0.dev/t/hni01UiTyf3
+-->
+<div class="flex flex-col items-center justify-center min-h-[50vh] space-y-4"><div class="flex flex-col items-center space-y-2"><h1 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+    Streamline Your Solar Sales.
+  </h1><p class="text-sm tracking-wide text-gray-500 dark:text-gray-400">
+    Sign in using your Google account
+  </p></div><a href='/login'><button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground py-2 h-12 px-6">
+  Google
+</button</a></div>
+
+</body>
+</html>

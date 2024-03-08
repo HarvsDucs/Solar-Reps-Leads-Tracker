@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="static/src/output.css" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('#toggleButton').click(function() {
+              $.post('/toggle', function(data) {
+                  $('#counter').text(data.counter);
+              });
+          });
+      });
+  </script>
+</head>
+<body>
+
+  <!--
+  // v0 by Vercel.
+  // https://v0.dev/t/V8fosInVn0V
+  -->
+  <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+    <div class="flex flex-col space-y-1.5 p-6 pb-0"><h3 class="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">Commission Calculator</h3>
+      <p class="text-sm text-muted-foreground">
+    Enter the required information to calculate the commission
+  </p></div>
+
+
+  <form action="/calculate" method="post">
+  <div class="p-6 space-y-4"><div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="dealer-fees">
+        Dealer Fee %
+      </label><input step="any" name="dealer_fees_percentage" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="dealer-fees" placeholder="0.00%" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="adders">
+        Adders (If Applicable)
+      </label><input step="any" name="adders" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="adders" placeholder="0" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="redline">
+        Redline
+      </label><input step="any" name="redline" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="redline" placeholder="0.00" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="ppw">
+        Price per Watt (PPW)
+      </label><input step="any" name="ppw" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="ppw" placeholder="0.00" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="system-size">
+        System Size (Watts)
+      </label><input step="any" name="system_size" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="system-size" placeholder="0.00" type="number"></div>
+    
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="dealer-fees">
+        Customer Name
+      </label><input step="any" name="customer_name" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="customer_name" placeholder="" type="string"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="adders">
+        Customer Address
+      </label><input step="any" name="customer_address" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="customer_address" placeholder="U.S. Address" type="string"></div>
+    
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="dealer-fees">
+        Google Sheets URL
+      </label><input step="any" name="google_sheets_url" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="google_sheets_url" placeholder="Ex. https://docs.google.com/spreadsheets/d/1SbjSzhu7uk3dFFjQrjz-8kJFctPZLyS-P800kdNWRGE/edit#gid=0" type="string"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="adders">
+        Sheet Name 
+      </label><input step="any" name="sheet_name" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="sheet_name" placeholder="Ex. Sheet1" type="string"></div>
+    </div>
+    
+    <button name="action" value="calculate" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-black text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Calculate</button>
+    
+    <button name="action" value="send_to_sheets" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Send to Google Sheets</button>
+
+    </div>
+  </div>
+</form>
+
+<h1>Please fiil up all boxes before sending to Google Sheets</h1>
+
+      
+<form action="/lead_tracker" method="post">
+  <!--
+  // v0 by Vercel.
+  // https://v0.dev/t/V8fosInVn0V
+  -->
+<div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
+    <div class="flex flex-col space-y-1.5 p-6 pb-0"><h3 class="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight">Leads Tracker</h3>
+      <p class="text-sm text-muted-foreground">
+        Track your solar leads with easy toggling, click "Send to Google Sheets" button below
+  </p></div>
+
+  <div class="p-6 space-y-4"><div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+
+    <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="dealer-fees">
+        Door to Door
+      </label><input step="any" name="door_to_door" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="door_to_door" placeholder="0.00" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="adders">
+        Conversions (door to door)
+      </label><input step="any" name="conversions_door_to_door" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="conversions_door_to_door" placeholder="0.00" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="redline">
+        Referrals
+      </label><input step="any" name="referrals" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="referrals" placeholder="0.00" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="ppw">
+        Conversions (referrals)
+      </label><input step="any" name="conversions_referrals" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="conversions_referrals" placeholder="0.00" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="system-size">
+        Online Inquiries
+      </label><input step="any" name="online_inquiries" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="online_inquiries" placeholder="0.00" type="number"></div>
+    
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="dealer-fees">
+        Conversions (online inquiries)
+      </label><input step="any" name="conversions_online_inquiries" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="conversion_online_inquiries" placeholder="0.00" type="number"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="adders">
+        Date Today
+      </label><input step="any" name="date_today" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="date_today" placeholder="Ex. January 1, 2024" type="string"></div>
+
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="dealer-fees">
+        Google Sheets URL
+      </label><input step="any" name="google_sheets_url" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="google_sheets_url" placeholder="Ex. https://docs.google.com/spreadsheets/d/1SbjSzhu7uk3dFFjQrjz-8kJFctPZLyS-P800kdNWRGE/edit#gid=0" type="string"></div>
+      
+      <div class="flex flex-col space-y-1"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="adders">
+        Sheet Name 
+      </label><input step="any" name="sheet_name" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" id="sheet_name" placeholder="Ex. Sheet1" type="string"></div>
+    
+    
+    </div>
+    
+      <button type="submit" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Send to Google Sheets</button>
+    
+      
+    </div>
+  </div>
+</form>
+
+    </body>
+</html>
